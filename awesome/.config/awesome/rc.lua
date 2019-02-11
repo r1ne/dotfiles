@@ -18,6 +18,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+local config_dir = gears.filesystem.get_configuration_dir()
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -48,7 +50,7 @@ end
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -148,6 +150,8 @@ local tasklist_buttons = gears.table.join(
                      awful.button({ }, 5, function ()
                                               awful.client.focus.byidx(-1)
                                           end))
+
+awful.spawn.with_shell(config_dir .. "autorun.sh")
 
 local function set_wallpaper(s)
     -- Wallpaper
